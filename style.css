@@ -1,0 +1,76 @@
+/* Restablecemos los márgenes por defecto y elegimos una fuente limpia */
+body {
+    background-color: #2B2B2B;
+    color: #f0f0f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilo para el encabezado de Gritick */
+header {
+    background-color: #171616;
+    padding: 60px 20px;
+    text-align: center;
+    border-bottom: 4px solid #FAFAFA; /* Una línea de acento rojo/coral */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 3em;
+    letter-spacing: 2px;
+}
+
+header p {
+    color: #383838;
+    font-size: 1.2em;
+}
+
+/* Contenedor central para que no ocupe toda la pantalla en monitores grandes */
+main {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Estilo de la "tarjeta" donde irá Flat Top */
+.tarjeta-juego {
+    background-color: #171616;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    margin-top: 20px;
+}
+
+.tarjeta-juego h3 {
+    margin-top: 0;
+    color: #242424;
+    font-size: 1.8em;
+}
+
+/* Estilo para el botón de Google Play */
+.boton {
+    display: inline-block;
+    background-color: #303030;
+    color: white;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    margin-top: 15px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+/* Efecto al pasar el mouse sobre el botón */
+.boton:hover {
+    background-color: #000000;
+}
+
+/* Pie de página */
+footer {
+    text-align: center;
+    padding: 30px;
+    margin-top: 50px;
+    color: #666;
+    font-size: 0.9em;
+}

@@ -3,9 +3,294 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gritick | Estudio de Desarrollo</title>
-    <!-- Aquí conectamos el CSS -->
-    <link rel="stylesheet" href="style.css">
+    <title>Gritick | Studios</title>
+    <!-- Ícono de la pestaña -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <!-- Todo el CSS unificado aquí -->
+    <style>
+        /* --- ESTILOS BASE DE GRITICK --- */
+        body {
+            background-color: #2B2B2B;
+            color: #f0f0f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #171616;
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 4px solid #FAFAFA;
+        }
+
+        .logo-estudio {
+            max-width: 250px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #888888; /* Aclarado un poco para que resalte sobre el fondo negro */
+            font-size: 1.2em;
+            margin: 0;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .tarjeta-juego {
+            background-color: #171616;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            margin-top: 20px;
+        }
+
+        .tarjeta-juego h3 {
+            margin-top: 0;
+            color: #FAFAFA; /* Modificado de #242424 a claro para que se lea en fondo oscuro */
+            font-size: 1.8em;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        /* --- ENLACE INVISIBLE PARA ENVOLVER EL BOTÓN --- */
+        .enlace-invisible {
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        /* --- NUEVO BOTÓN ANIMADO --- */
+        .btn-wrapper {
+            --rad: 15px; /* Reducido de 32px para que no sea tan redondo */
+            --color-wrapper-border: #fff;
+            --color-btn-bg: #f00; /* Puedes cambiar esto al rojo de tu logo si deseas */
+            --color-btn-text: #000;
+            --color-btn-text-shadow: #fff;
+            --color-btn-inset-shadow: #558;
+            --color-layer-a: #fff;
+            --color-layer-b: #00f;
+            --color-overlay-text: #000;
+            --color-overlay-glow: #fff;
+            --color-overlay-shadow: #0004;
+            --color-overlay-highlight: #fff5;
+
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: clip;
+            overflow-clip-margin: 4px;
+
+            border: 2px solid var(--color-wrapper-border);
+            border-radius: var(--rad);
+
+            font-family: "Inter", sans-serif;
+            font-size: 1.1rem; /* Ajustado de 1.5rem para que el texto largo quepa bien */
+            font-weight: 600;
+
+            filter: saturate(0.65) brightness(1.8);
+        }
+
+        .gradient-btn {
+            position: relative;
+            z-index: -1;
+            padding: 12px 36px;
+            border: none;
+            border-radius: var(--rad);
+            font-family: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            letter-spacing: 0.15rem;
+            color: var(--color-btn-text);
+            background-color: var(--color-btn-bg);
+            background-size: 200% 200%;
+            box-shadow: inset 0 0 10px 9px var(--color-btn-inset-shadow);
+            text-shadow: 0 1px 3px var(--color-btn-text-shadow);
+            cursor: pointer;
+            mix-blend-mode: color-dodge;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        .gradient-btn::after {
+            content: "";
+            position: absolute;
+            pointer-events: none;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: var(--rad);
+            background-size: 200% 200%;
+            mix-blend-mode: difference;
+            z-index: 1;
+        }
+
+        .gradient-layer {
+            position: absolute;
+            pointer-events: none;
+            left: -160px;
+            width: 500%;
+            aspect-ratio: 1;
+            background: radial-gradient(
+                ellipse at 65% 180%,
+                var(--color-layer-a), var(--color-layer-b), var(--color-layer-a),
+                var(--color-layer-b), var(--color-layer-a), var(--color-layer-b),
+                var(--color-layer-a), var(--color-layer-b), var(--color-layer-a),
+                var(--color-layer-b), var(--color-layer-a)
+            );
+            mix-blend-mode: difference;
+            animation: rotate 8s linear infinite;
+        }
+
+        .gradient-layer:last-child {
+            mix-blend-mode: color-dodge;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .text-overlay {
+            position: absolute;
+            pointer-events: none;
+            z-index: 2;
+            padding: 12px 36px;
+            border-radius: var(--rad);
+            font-family: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            letter-spacing: 0.15rem;
+            color: var(--color-overlay-text);
+            text-shadow: 0 0 4px var(--color-overlay-glow);
+            box-shadow:
+                inset 0 -4px 4px 0 var(--color-overlay-shadow),
+                inset 0 4px 4px 0 var(--color-overlay-highlight);
+            mix-blend-mode: multiply;
+            transition: transform 0.3s ease;
+            animation: opacityPulse 5s ease infinite;
+        }
+
+        /* Reglas Hover y Active (Aplanadas para evitar errores de anidación) */
+        .btn-wrapper:hover .text-overlay { transform: scale(1.1); }
+        .btn-wrapper:hover .gradient-btn { color: #0000; text-shadow: 0 0 0 #0000; }
+        .btn-wrapper:active .text-overlay { transform: scale(0.95); }
+        .btn-wrapper:active .gradient-btn { color: #0000; text-shadow: 0 0 0 #0000; }
+
+        .light {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            border-radius: 50px;
+            width: 80%;
+            height: 1.9rem;
+            aspect-ratio: 1;
+            background-color: #fff5;
+            filter: blur(5px);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.1; }
+        }
+        @keyframes opacityPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* --- CAJA DE FEEDBACK OSCURA --- */
+        .feedback-box {
+            background-color: #171616;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .feedback-box h3 {
+            margin: 0;
+            color: #888;
+            font-size: 1.5em;
+            text-transform: capitalize;
+        }
+
+        .feedback-box textarea {
+            background-color: #2B2B2B;
+            color: #f0f0f5;
+            border: 2px solid #383838;
+            border-radius: 6px;
+            padding: 10px;
+            min-height: 80px;
+            resize: none;
+            outline: none;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .feedback-box textarea:focus {
+            border-color: #FAFAFA;
+        }
+
+        .feedback-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .icon-btn, .send-btn {
+            background-color: #2B2B2B;
+            border: 2px solid #383838;
+            border-radius: 6px;
+            padding: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .icon-btn:hover, .send-btn:hover {
+            border-color: #FAFAFA;
+            background-color: #383838;
+        }
+
+        .feedback-actions svg {
+            fill: #888;
+            width: 20px;
+            height: 20px;
+            transition: fill 0.3s;
+        }
+
+        .icon-btn:hover svg, .send-btn:hover svg {
+            fill: #f0f0f5;
+        }
+
+        .feedback-actions hr {
+            flex-grow: 1;
+            border: none;
+        }
+
+        .send-btn {
+            flex-grow: 2;
+        }
+    </style>
 </head>
 <body>
 
@@ -19,12 +304,25 @@
         <section>
             <h2>Games</h2>
             
-            <!-- Le añadimos la clase tarjeta-juego -->
             <article class="tarjeta-juego">
                 <h3>Flat Top</h3>
                 <p>Take control of your own restaurant in the 1960s! A 2D management simulator where every detail counts.</p>
-                <!-- Le añadimos la clase boton -->
-                <a href="[https://play.google.com/store/apps/details?id=com.gritick.flattop](https://play.google.com/store/apps/details?id=com.gritick.flattop)" class="boton" target="_blank">Descargar en Google Play</a> 
+                
+                <!-- EL NUEVO BOTÓN (Envuelto en la etiqueta de enlace a la Play Store) -->
+                <a href="https://play.google.com/store/apps/details?id=com.gritick.flattop" target="_blank" class="enlace-invisible">
+                    <div class="btn-wrapper">
+                        <div class="light"></div>
+                        <div class="gradient-layer" style="animation-delay: 0s; animation-duration: 25s;"></div>
+                        <div class="gradient-layer" style="animation-delay: 0.15s; animation-duration: 15.9s;"></div>
+                        <div class="gradient-layer" style="animation-delay: 0.53s; animation-duration: 26.4s;"></div>
+                        <div class="gradient-layer" style="animation-delay: 0.45s; animation-duration: 17.8s;"></div>
+                        <div class="gradient-layer" style="animation-delay: 1.6s; animation-duration: 19.2s;"></div>
+                        <div class="gradient-layer" style="animation-delay: 1.6s; animation-duration: 29.2s;"></div>
+                        <div class="gradient-layer" style="animation-delay: 1.6s; animation-duration: 20.2s;"></div>
+                        <div class="gradient-btn">Descargar en Google Play</div>
+                        <div class="text-overlay">Descargar en Google Play</div>
+                    </div>
+                </a>
             </article>
 
         </section>
@@ -32,6 +330,30 @@
         <section>
             <h2>About us</h2>
             <p>Deep and detailed experiences.</p>
+        </section>
+
+        <!-- SECCIÓN DE FEEDBACK (Traducida de Tailwind al CSS limpio de arriba) -->
+        <section class="feedback-box">
+            <h3>Feedback</h3>
+            <textarea placeholder="What's Your Feedback?"></textarea>
+            <div class="feedback-actions">
+                <button class="icon-btn">
+                    <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm177.6 62.1C192.8 334.5 218.8 352 256 352s63.2-17.5 78.4-33.9c9-9.7 24.2-10.4 33.9-1.4s10.4 24.2 1.4 33.9c-22 23.8-60 49.4-113.6 49.4s-91.7-25.5-113.6-49.4c-9-9.7-8.4-24.9 1.4-33.9s24.9-8.4 33.9 1.4zm40-89.3l0 0 0 0-.2-.2c-.2-.2-.4-.5-.7-.9c-.6-.8-1.6-2-2.8-3.4c-2.5-2.8-6-6.6-10.2-10.3c-8.8-7.8-18.8-14-27.7-14s-18.9 6.2-27.7 14c-4.2 3.7-7.7 7.5-10.2 10.3c-1.2 1.4-2.2 2.6-2.8 3.4c-.3 .4-.6 .7-.7 .9l-.2 .2 0 0 0 0 0 0c-2.1 2.8-5.7 3.9-8.9 2.8s-5.5-4.1-5.5-7.6c0-17.9 6.7-35.6 16.6-48.8c9.8-13 23.9-23.2 39.4-23.2s29.6 10.2 39.4 23.2c9.9 13.2 16.6 30.9 16.6 48.8c0 3.4-2.2 6.5-5.5 7.6s-6.9 0-8.9-2.8l0 0 0 0zm160 0l0 0-.2-.2c-.2-.2-.4-.5-.7-.9c-.6-.8-1.6-2-2.8-3.4c-2.5-2.8-6-6.6-10.2-10.3c-8.8-7.8-18.8-14-27.7-14s-18.9 6.2-27.7 14c-4.2 3.7-7.7 7.5-10.2 10.3c-1.2 1.4-2.2 2.6-2.8 3.4c-.3 .4-.6 .7-.7 .9l-.2 .2 0 0 0 0 0 0c-2.1 2.8-5.7 3.9-8.9 2.8s-5.5-4.1-5.5-7.6c0-17.9 6.7-35.6 16.6-48.8c9.8-13 23.9-23.2 39.4-23.2s29.6 10.2 39.4 23.2c9.9 13.2 16.6 30.9 16.6 48.8c0 3.4-2.2 6.5-5.5 7.6s-6.9 0-8.9-2.8l0 0 0 0 0 0z"></path>
+                    </svg>
+                </button>
+                <button class="icon-btn">
+                    <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zM174.6 384.1c-4.5 12.5-18.2 18.9-30.7 14.4s-18.9-18.2-14.4-30.7C146.9 319.4 198.9 288 256 288s109.1 31.4 126.6 79.9c4.5 12.5-2 26.2-14.4 30.7s-26.2-2-30.7-14.4C328.2 358.5 297.2 336 256 336s-72.2 22.5-81.4 48.1zM144.4 208a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm192-32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"></path>
+                    </svg>
+                </button>
+                <hr>
+                <button class="send-btn">
+                    <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16.1 260.2c-22.6 12.9-20.5 47.3 3.6 57.3L160 376V479.3c0 18.1 14.6 32.7 32.7 32.7c9.7 0 18.9-4.3 25.1-11.8l62-74.3 123.9 51.6c18.9 7.9 40.8-4.5 43.9-24.7l64-416c1.9-12.1-3.4-24.3-13.5-31.2s-23.3-7.5-34-1.4l-448 256zm52.1 25.5L409.7 90.6 190.1 336l1.2 1L68.2 285.7zM403.3 425.4L236.7 355.9 450.8 116.6 403.3 425.4z"></path>
+                    </svg>
+                </button>
+            </div>
         </section>
 
     </main>

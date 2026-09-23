@@ -32,7 +32,7 @@
         }
 
         header p {
-            color: #888888; /* Aclarado un poco para que resalte sobre el fondo negro */
+            color: #888888;
             font-size: 1.2em;
             margin: 0;
         }
@@ -53,7 +53,7 @@
 
         .tarjeta-juego h3 {
             margin-top: 0;
-            color: #FAFAFA; /* Modificado de #242424 a claro para que se lea en fondo oscuro */
+            color: #FAFAFA;
             font-size: 1.8em;
         }
 
@@ -74,33 +74,24 @@
 
         /* --- NUEVO BOTÓN ANIMADO --- */
         .btn-wrapper {
-            --rad: 15px; /* Reducido de 32px para que no sea tan redondo */
+            --rad: 15px;
             --color-wrapper-border: #fff;
-            --color-btn-bg: #f00; /* Puedes cambiar esto al rojo de tu logo si deseas */
+            --color-btn-bg: #111;
             --color-btn-text: #000;
             --color-btn-text-shadow: #fff;
             --color-btn-inset-shadow: #558;
-            --color-layer-a: #fff;
-            --color-layer-b: #00f;
-            --color-overlay-text: #000;
-            --color-overlay-glow: #fff;
-            --color-overlay-shadow: #0004;
-            --color-overlay-highlight: #fff5;
-
+            
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: clip;
             overflow-clip-margin: 4px;
-
             border: 2px solid var(--color-wrapper-border);
             border-radius: var(--rad);
-
             font-family: "Inter", sans-serif;
-            font-size: 1.1rem; /* Ajustado de 1.5rem para que el texto largo quepa bien */
+            font-size: 1.1rem;
             font-weight: 600;
-
             filter: saturate(0.65) brightness(1.8);
         }
 
@@ -144,12 +135,13 @@
             left: -160px;
             width: 500%;
             aspect-ratio: 1;
+            /* Modificado a Azul, Rojo, Verde y Amarillo */
             background: radial-gradient(
                 ellipse at 65% 180%,
-                var(--color-layer-a), var(--color-layer-b), var(--color-layer-a),
-                var(--color-layer-b), var(--color-layer-a), var(--color-layer-b),
-                var(--color-layer-a), var(--color-layer-b), var(--color-layer-a),
-                var(--color-layer-b), var(--color-layer-a)
+                #0055ff, #0055ff, #2ed573, #ffcc00, 
+                #2ed573, #ff2a2a, #e9eceb, #ff2a2a,
+                #ffcc00, #f1efef, #00aeff, #ffcc00,
+                #00aeff, #2ed573
             );
             mix-blend-mode: difference;
             animation: rotate 8s linear infinite;
@@ -176,15 +168,12 @@
             letter-spacing: 0.15rem;
             color: var(--color-overlay-text);
             text-shadow: 0 0 4px var(--color-overlay-glow);
-            box-shadow:
-                inset 0 -4px 4px 0 var(--color-overlay-shadow),
-                inset 0 4px 4px 0 var(--color-overlay-highlight);
+            box-shadow: inset 0 -4px 4px 0 var(--color-overlay-shadow), inset 0 4px 4px 0 var(--color-overlay-highlight);
             mix-blend-mode: multiply;
             transition: transform 0.3s ease;
             animation: opacityPulse 5s ease infinite;
         }
 
-        /* Reglas Hover y Active (Aplanadas para evitar errores de anidación) */
         .btn-wrapper:hover .text-overlay { transform: scale(1.1); }
         .btn-wrapper:hover .gradient-btn { color: #0000; text-shadow: 0 0 0 #0000; }
         .btn-wrapper:active .text-overlay { transform: scale(0.95); }
@@ -291,9 +280,7 @@
             flex-grow: 2;
         }
 
-        /* --- NUEVOS ESTILOS PARA EL FEEDBACK Y LOS EMOJIS --- */
-
-        /* Estilo para el nuevo campo de correo */
+        /* --- INPUT DE CORREO Y EMOJIS --- */
         .email-input {
             background-color: #242424;
             color: #f0f0f5;
@@ -304,53 +291,110 @@
             font-family: inherit;
             transition: border-color 0.3s;
         }
-        .email-input:focus {
-            border-color: #555;
-        }
+        .email-input:focus { border-color: #555; }
+        
+        .feedback-actions input[type="radio"] { display: none; }
 
-        /* Ocultamos los "puntitos" reales de los radio buttons */
-        .feedback-actions input[type="radio"] {
-            display: none;
-        }
-
-        /* Cuando la cara triste está seleccionada, se pinta de rojo */
-        .feedback-actions input[type="radio"]:checked + .icon-btn.triste {
-            background-color: #3d1c1c;
-            border-color: #ff4757;
-        }
-        .feedback-actions input[type="radio"]:checked + .icon-btn.triste svg {
-            fill: #ff4757;
-        }
-
-        /* Cuando la cara feliz está seleccionada, se pinta de verde */
+        /* Cara Feliz (Verde) */
         .feedback-actions input[type="radio"]:checked + .icon-btn.feliz {
             background-color: #1c3d24;
             border-color: #2ed573;
         }
-        .feedback-actions input[type="radio"]:checked + .icon-btn.feliz svg {
-            fill: #2ed573;
+        .feedback-actions input[type="radio"]:checked + .icon-btn.feliz svg { fill: #2ed573; }
+
+        /* Cara Triste (Rojo) */
+        .feedback-actions input[type="radio"]:checked + .icon-btn.triste {
+            background-color: #3d1c1c;
+            border-color: #ff4757;
         }
-                
-        
+        .feedback-actions input[type="radio"]:checked + .icon-btn.triste svg { fill: #ff4757; }
+
+        /* --- ESTILOS DEL POPUP (TOAST CARD) --- */
+        #toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 9999;
+        }
+
+        .card {
+            width: 330px;
+            min-height: 80px;
+            border-radius: 8px;
+            box-sizing: border-box;
+            padding: 10px 15px;
+            background-color: #201e1e;
+            box-shadow: rgba(0, 0, 0, 0.5) 0px 8px 24px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            gap: 15px;
+            
+            /* Animación de entrada y salida */
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.4s ease-out;
+        }
+
+        .card.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .icon-container {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            margin-left: 8px;
+            border: 2px solid; /* El color se inyecta por JS */
+        }
+
+        .message-text-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            flex-grow: 1;
+        }
+
+        .message-text, .sub-text { margin: 0; cursor: default; }
+        .message-text { font-size: 17px; font-weight: 700; }
+        .sub-text { font-size: 14px; color: #dbd7d7; }
+
+        .cross-icon {
+            width: 18px;
+            height: 18px;
+            color: #dfdede;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .cross-icon:hover { color: #fff; }
+
     </style>
 </head>
 <body>
 
     <header>
         <img src="logo.png" alt="Logo de Gritick" class="logo-estudio">
-        <p>Games and apps.</p>
+        <p></p>
     </header>
 
     <main>
         
         <section>
             <h2>Games</h2>
-            
             <article class="tarjeta-juego">
                 <h3>Flat Top</h3>
                 <p>Take control of your own restaurant in the 1960s! A 2D management simulator where every detail counts.</p>
                 
-                <!-- EL NUEVO BOTÓN (Envuelto en la etiqueta de enlace a la Play Store) -->
                 <a href="https://play.google.com/store/apps/details?id=com.gritick.flattop" target="_blank" class="enlace-invisible">
                     <div class="btn-wrapper">
                         <div class="light"></div>
@@ -361,12 +405,11 @@
                         <div class="gradient-layer" style="animation-delay: 1.6s; animation-duration: 19.2s;"></div>
                         <div class="gradient-layer" style="animation-delay: 1.6s; animation-duration: 29.2s;"></div>
                         <div class="gradient-layer" style="animation-delay: 1.6s; animation-duration: 20.2s;"></div>
-                        <div class="gradient-btn">Descargar en Google Play</div>
-                        <div class="text-overlay">Descargar en Google Play</div>
+                        <div class="gradient-btn">Get it on Google Play</div>
+                        <div class="text-overlay">Get it on Google Play</div>
                     </div>
                 </a>
             </article>
-
         </section>
 
         <section>
@@ -374,35 +417,29 @@
             <p>Deep and detailed experiences.</p>
         </section>
 
-        <!-- SECCIÓN DE FEEDBACK (Traducida de Tailwind al CSS limpio de arriba) -->
-        <!-- Nueva sección de Feedback Funcional -->
-        <form action="https://formsubmit.co/Admin@gritick.com" method="POST" class="feedback-box">
+        <!-- AÑADÍ novalidate PARA TOMAR EL CONTROL CON JAVASCRIPT -->
+        <form action="https://formsubmit.co/Admin@gritick.com" method="POST" class="feedback-box" novalidate>
             <h3>Feedback</h3>
             
-            <!-- Campo para el correo del jugador -->
-            <input type="email" name="email" placeholder="Tu correo electrónico (para contactarte)" required class="email-input">
-            
-            <!-- Área de texto -->
+            <input type="email" name="email" placeholder="Your email address" required class="email-input">
             <textarea name="mensaje" placeholder="What's Your Feedback?" required></textarea>
             
-            <!-- Configuraciones ocultas para el envío del correo -->
             <input type="hidden" name="_subject" value="¡Nuevo Feedback en Gritick.com!">
-            <input type="hidden" name="_next" value="https://gritick.com/"> <!-- Para que regresen a tu web al enviar -->
-            <input type="hidden" name="_captcha" value="false"> <!-- Evita que salga un captcha molesto -->
+            <input type="hidden" name="_captcha" value="false">
 
             <div class="feedback-actions">
                 
-                <!-- Botón Triste (Radio Button oculto) -->
-                <input type="radio" id="cara-triste" name="calificacion" value="Negativa" required>
-                <label for="cara-triste" class="icon-btn triste">
+                <!-- Botón Feliz (Izquierda - Verde) -->
+                <input type="radio" id="cara-feliz" name="calificacion" value="Positiva" required>
+                <label for="cara-feliz" class="icon-btn feliz">
                     <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                         <path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm177.6 62.1C192.8 334.5 218.8 352 256 352s63.2-17.5 78.4-33.9c9-9.7 24.2-10.4 33.9-1.4s10.4 24.2 1.4 33.9c-22 23.8-60 49.4-113.6 49.4s-91.7-25.5-113.6-49.4c-9-9.7-8.4-24.9 1.4-33.9s24.9-8.4 33.9 1.4zm40-89.3l0 0 0 0-.2-.2c-.2-.2-.4-.5-.7-.9c-.6-.8-1.6-2-2.8-3.4c-2.5-2.8-6-6.6-10.2-10.3c-8.8-7.8-18.8-14-27.7-14s-18.9 6.2-27.7 14c-4.2 3.7-7.7 7.5-10.2 10.3c-1.2 1.4-2.2 2.6-2.8 3.4c-.3 .4-.6 .7-.7 .9l-.2 .2 0 0 0 0 0 0c-2.1 2.8-5.7 3.9-8.9 2.8s-5.5-4.1-5.5-7.6c0-17.9 6.7-35.6 16.6-48.8c9.8-13 23.9-23.2 39.4-23.2s29.6 10.2 39.4 23.2c9.9 13.2 16.6 30.9 16.6 48.8c0 3.4-2.2 6.5-5.5 7.6s-6.9 0-8.9-2.8l0 0 0 0zm160 0l0 0-.2-.2c-.2-.2-.4-.5-.7-.9c-.6-.8-1.6-2-2.8-3.4c-2.5-2.8-6-6.6-10.2-10.3c-8.8-7.8-18.8-14-27.7-14s-18.9 6.2-27.7 14c-4.2 3.7-7.7 7.5-10.2 10.3c-1.2 1.4-2.2 2.6-2.8 3.4c-.3 .4-.6 .7-.7 .9l-.2 .2 0 0 0 0 0 0c-2.1 2.8-5.7 3.9-8.9 2.8s-5.5-4.1-5.5-7.6c0-17.9 6.7-35.6 16.6-48.8c9.8-13 23.9-23.2 39.4-23.2s29.6 10.2 39.4 23.2c9.9 13.2 16.6 30.9 16.6 48.8c0 3.4-2.2 6.5-5.5 7.6s-6.9 0-8.9-2.8l0 0 0 0 0 0z"></path>
                     </svg>
                 </label>
 
-                <!-- Botón Feliz (Radio Button oculto) -->
-                <input type="radio" id="cara-feliz" name="calificacion" value="Positiva">
-                <label for="cara-feliz" class="icon-btn feliz">
+                <!-- Botón Triste (Derecha - Rojo) -->
+                <input type="radio" id="cara-triste" name="calificacion" value="Negativa">
+                <label for="cara-triste" class="icon-btn triste">
                     <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                         <path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zM174.6 384.1c-4.5 12.5-18.2 18.9-30.7 14.4s-18.9-18.2-14.4-30.7C146.9 319.4 198.9 288 256 288s109.1 31.4 126.6 79.9c4.5 12.5-2 26.2-14.4 30.7s-26.2-2-30.7-14.4C328.2 358.5 297.2 336 256 336s-72.2 22.5-81.4 48.1zM144.4 208a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm192-32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"></path>
                     </svg>
@@ -410,7 +447,6 @@
 
                 <hr>
                 
-                <!-- Botón de Enviar -->
                 <button type="submit" class="send-btn">
                     <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                         <path d="M16.1 260.2c-22.6 12.9-20.5 47.3 3.6 57.3L160 376V479.3c0 18.1 14.6 32.7 32.7 32.7c9.7 0 18.9-4.3 25.1-11.8l62-74.3 123.9 51.6c18.9 7.9 40.8-4.5 43.9-24.7l64-416c1.9-12.1-3.4-24.3-13.5-31.2s-23.3-7.5-34-1.4l-448 256zm52.1 25.5L409.7 90.6 190.1 336l1.2 1L68.2 285.7zM403.3 425.4L236.7 355.9 450.8 116.6 403.3 425.4z"></path>
@@ -418,12 +454,100 @@
                 </button>
             </div>
         </form>
-
     </main>
 
     <footer>
         <p>&copy; 2026 Gritick. All rights reserved.</p>
     </footer>
 
+    <!-- CONTENEDOR DONDE SE INYECTARÁN LOS POPUPS -->
+    <div id="toast-container"></div>
+
+    <!-- SCRIPT MÁGICO PARA VALIDACIÓN Y ENVÍO EN SEGUNDO PLANO -->
+    <script>
+        // Función para crear e inyectar el popup (Toast)
+        function showToast(title, message, type) {
+            const container = document.getElementById('toast-container');
+            const card = document.createElement('div');
+            card.className = 'card';
+            
+            // Elegimos color según si es éxito o advertencia
+            const color = type === 'success' ? '#7ccb7b' : '#e6c229';
+            
+            // Dibujamos un checkmark para éxito o un signo de exclamación para advertencia
+            const iconSvg = type === 'success' 
+                ? '<polyline points="20 6 9 17 4 12"></polyline>' 
+                : '<circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line>';
+
+            // Estructura HTML de tu `.card`
+            card.innerHTML = `
+                <div class="icon-container" style="border: 2px solid ${color}">
+                    <svg style="color: ${color}; width: 17px; height: 17px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        ${iconSvg}
+                    </svg>
+                </div>
+                <div class="message-text-container">
+                    <p class="message-text" style="color: ${color}">${title}</p>
+                    <p class="sub-text">${message}</p>
+                </div>
+                <svg class="cross-icon" onclick="this.parentElement.remove()" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            `;
+            
+            container.appendChild(card);
+            
+            // Hacemos que aparezca suavemente
+            setTimeout(() => card.classList.add('show'), 10);
+            
+            // Hacemos que desaparezca y se borre a los 4.5 segundos
+            setTimeout(() => {
+                card.classList.remove('show');
+                setTimeout(() => card.remove(), 400);
+            }, 4500);
+        }
+
+        // Interceptamos el envío del formulario
+        document.querySelector('.feedback-box').addEventListener('submit', function(e) {
+            e.preventDefault(); // Evitamos que la página cambie de sitio
+
+            // 1. Verificamos que el correo y el mensaje estén llenos
+            const email = document.querySelector('.email-input').value;
+            const mensaje = document.querySelector('textarea[name="mensaje"]').value;
+            if (!email || !mensaje) {
+                showToast('Action Required', 'Please fill in your email and feedback.', 'warning');
+                return;
+            }
+
+            // 2. Verificamos que al menos un emoji haya sido seleccionado
+            const emojiSeleccionado = document.querySelector('input[name="calificacion"]:checked');
+            if (!emojiSeleccionado) {
+                showToast('Action Required', 'Please select an emoji (happy or sad).', 'warning');
+                return;
+            }
+
+            // Si pasa las validaciones, procedemos a enviarlo
+            const formData = new FormData(this);
+
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json' // Esto le dice a FormSubmit que no queremos que nos redirija
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    showToast('Success', 'Your feedback was sent successfully!', 'success');
+                    this.reset(); // Limpia el formulario para que quede en blanco nuevamente
+                } else {
+                    showToast('Error', 'Something went wrong. Please try again.', 'warning');
+                }
+            })
+            .catch(error => {
+                showToast('Network Error', 'Please check your connection and try again.', 'warning');
+            });
+        });
+    </script>
 </body>
 </html>
